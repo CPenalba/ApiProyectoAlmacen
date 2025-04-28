@@ -1,4 +1,5 @@
 using ApiProyectoAlmacen.Data;
+using ApiProyectoAlmacen.Helpers;
 using ApiProyectoAlmacen.Repositories;
 using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.DataProtection;
@@ -24,6 +25,14 @@ KeyVaultSecret secret = await secretClient.GetSecretAsync("SqlAzure");
 string connectionString = secret.Value;
 builder.Services.AddTransient<RepositoryAlmacen>();
 builder.Services.AddDbContext<AlmacenContext>(options => options.UseSqlServer(connectionString));
+
+HelperCryptography.Initialize(builder.Configuration, secretClient);
+builder.Services.AddTransient<HelperUsuarioToken>();
+builder.Services.AddHttpContextAccessor();
+
+HelperActionServicesOAuth helper = new HelperActionServicesOAuth(builder.Configuration, secretClient);
+builder.Services.AddSingleton<HelperActionServicesOAuth>(helper);
+builder.Services.AddAuthentication(helper.GetAuthenticationSchema()).AddJwtBearer(helper.GetJwtBearerOptions());
 
 var app = builder.Build();
 
