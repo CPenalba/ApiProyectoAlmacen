@@ -1,4 +1,5 @@
 ﻿using ApiProyectoAlmacen.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NugetProyectoAlmacen.Models;
 
@@ -39,6 +40,13 @@ namespace ApiProyectoAlmacen.Repositories
             await this.context.AlertasStocks.AddAsync(a);
             await this.context.SaveChangesAsync();
         }
+
+        public async Task<ActionResult<Tienda>> GetTiendaByCorreo(string correo)
+        {
+            var tienda = await context.Tiendas.FirstOrDefaultAsync(t => t.Correo == correo);
+            return tienda;
+        }
+
 
         public async Task UpdateAlertaAsync(AlertaStock a)
         {

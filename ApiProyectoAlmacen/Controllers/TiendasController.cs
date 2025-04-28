@@ -1,6 +1,7 @@
 ﻿using ApiProyectoAlmacen.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NugetProyectoAlmacen.Models;
 
 namespace ApiProyectoAlmacen.Controllers
@@ -25,6 +26,12 @@ namespace ApiProyectoAlmacen.Controllers
         public async Task<ActionResult<Tienda>> GetTiendaById(int tiendaId)
         {
             return await repo.GetTiendaByIdAsync(tiendaId);
+        }
+
+        [HttpGet("GetTiendaByCorreo/{correo}")]
+        public async Task<ActionResult<Tienda>> GetTiendaByCorreo(string correo)
+        {
+            return await this.repo.GetTiendaByCorreo(correo);
         }
 
         [HttpPost("login")]
