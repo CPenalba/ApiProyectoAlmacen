@@ -1,4 +1,5 @@
 ﻿using ApiProyectoAlmacen.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,6 +19,7 @@ namespace ApiProyectoAlmacen.Controllers
             this.repo = repo;
         }
 
+        [Authorize]
         [HttpGet("GetAlertasStocksBy/{idTienda}")]
         public async Task<ActionResult<List<AlertaStock>>> GetAlertasStocksByIdTienda(int idTienda)
         {
@@ -31,6 +33,7 @@ namespace ApiProyectoAlmacen.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("FindAlertaBy/{idAlerta}")]
 
         public async Task<ActionResult<AlertaStock>> FindAlertaByIdAlerta(int idAlerta)
@@ -38,6 +41,7 @@ namespace ApiProyectoAlmacen.Controllers
             return await this.repo.FindAlertaAsync(idAlerta);
         }
 
+        [Authorize]
         [HttpGet("GetProductoBy/{idProducto}")]
 
         public async Task<ActionResult<Producto>> GetProductoByIdProducto(int idProducto)
@@ -57,6 +61,7 @@ namespace ApiProyectoAlmacen.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> InsertAlertaAsync(AlertaStock a)
         {
@@ -64,6 +69,7 @@ namespace ApiProyectoAlmacen.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteAlertaById(int id)
         {
@@ -71,6 +77,7 @@ namespace ApiProyectoAlmacen.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<ActionResult> UpdateAlerta(AlertaStock a)
         {

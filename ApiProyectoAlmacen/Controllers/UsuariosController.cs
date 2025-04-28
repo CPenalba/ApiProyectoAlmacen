@@ -1,4 +1,5 @@
 ﻿using ApiProyectoAlmacen.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NugetProyectoAlmacen.Models;
@@ -16,6 +17,7 @@ namespace ApiProyectoAlmacen.Controllers
             this.repo = repo;
         }
 
+        [Authorize]
         [HttpGet("GetUsuariosBy/{idTienda}")]
         public async Task<ActionResult<List<Usuario>>> GetUsuariosByTienda(int idTienda)
         {
@@ -23,6 +25,7 @@ namespace ApiProyectoAlmacen.Controllers
             return Ok(usuarios);
         }
 
+        [Authorize]
         [HttpGet("GetUsuarioBy/{idUsuario}")]
         public async Task<ActionResult<Usuario>> GetUsuarioByIdUsuario(int idUsuario)
         {
@@ -30,6 +33,7 @@ namespace ApiProyectoAlmacen.Controllers
             return Ok(usuario);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> CreateUsuario(Usuario u)
         {
@@ -37,6 +41,7 @@ namespace ApiProyectoAlmacen.Controllers
             return Ok(new { message = "Usuario registrado correctamente" });
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateUsuario(Usuario usuario)
         {
@@ -44,6 +49,7 @@ namespace ApiProyectoAlmacen.Controllers
             return Ok(new { message = "Usuario actualizado correctamente" });
         }
 
+        [Authorize]
         [HttpPut("UpdateUsuario/{idUsuario}/{nuevaContraseña}")]
         public async Task<IActionResult> CambiarContraseña(int idUsuario, string nuevaContraseña)
         {

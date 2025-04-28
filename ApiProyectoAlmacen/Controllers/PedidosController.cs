@@ -1,4 +1,5 @@
 ﻿using ApiProyectoAlmacen.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NugetProyectoAlmacen.Models;
@@ -16,12 +17,14 @@ namespace ApiProyectoAlmacen.Controllers
             this.repo = repo;
         }
 
+        [Authorize]
         [HttpGet("GetPedidosBy/{idTienda}")]
         public async Task<ActionResult<List<Pedido>>> GetPedidosByTienda(int idTienda)
         {
             return await repo.GetPedidosAsync(idTienda);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> InsertPedido(Pedido p)
         {
@@ -29,6 +32,7 @@ namespace ApiProyectoAlmacen.Controllers
             return Ok(new { message = "Pedido registrado correctamente" });
         }
 
+        [Authorize]
         [HttpPut("UpdateEstadoPedido/{idPedido}/{nuevoEstado}")]
         public async Task<ActionResult> UpdateEstadoPedido(int idPedido, string nuevoEstado)
         {

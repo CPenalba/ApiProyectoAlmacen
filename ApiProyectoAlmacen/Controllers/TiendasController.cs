@@ -1,4 +1,5 @@
 ﻿using ApiProyectoAlmacen.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,24 +17,28 @@ namespace ApiProyectoAlmacen.Controllers
             this.repo = repo;
         }
 
+        [Authorize]
         [HttpGet("GetTiendas")]
         public async Task<ActionResult<List<Tienda>>> GetTiendas()
         {
             return await repo.GetTiendasAsync();
         }
 
+        [Authorize]
         [HttpGet("GetTiendaById/{tiendaId}")]
         public async Task<ActionResult<Tienda>> GetTiendaById(int tiendaId)
         {
             return await repo.GetTiendaByIdAsync(tiendaId);
         }
 
+        [Authorize]
         [HttpGet("GetTiendaByCorreo/{correo}")]
         public async Task<ActionResult<Tienda>> GetTiendaByCorreo(string correo)
         {
             return await this.repo.GetTiendaByCorreo(correo);
         }
 
+        [Authorize]
         [HttpPost("login")]
         public async Task<ActionResult<Tienda>> Login(Tienda t)
         {
@@ -54,6 +59,7 @@ namespace ApiProyectoAlmacen.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("insertar")]
         public async Task<ActionResult> CreateTienda(Tienda t)
         {
